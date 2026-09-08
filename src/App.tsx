@@ -1,24 +1,3 @@
---- src/App.tsx (原始)
-// УПРОЩЁННАЯ ВЕРСИЯ ДЛЯ ДИАГНОСТИКИ
-export default function App() {
-  return (
-    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h1>ГЕНЕРАТОР·ВОР</h1>
-      <p>Приложение успешно загружено!</p>
-      <p>Если вы видите этот текст, значит React работает корректно.</p>
-      <hr />
-      <p><strong>Следующие шаги:</strong></p>
-      <ol>
-        <li>Откройте консоль браузера (F12)</li>
-        <li>Проверьте, есть ли ошибки JavaScript</li>
-        <li>Сообщите мне о результатах</li>
-      </ol>
-    </div>
-  );
-}
-
-
-+++ src/App.tsx (修改后)
 import { Component, useEffect, useRef, useState, type ReactNode } from "react";
 import { loadExcel, vorBlob, csvBlob } from "./lib/excelIo";
 import { hasCol, processVor, type VorResult, type LoadedFile } from "./lib/vor";
@@ -98,7 +77,7 @@ class ErrorBoundary extends Component<{ children: ReactNode }, { err: Error | nu
               </h1>
             </div>
             <p className="mt-3 text-[13px] leading-relaxed text-ink-400">
-              Приложение перехватило ошибку — это не «пустой экран», а диагностическая карточка. Перезагрузите страницу.
+              Приложение перехватило ошибку. Перезагрузите страницу.
             </p>
             <pre className="code-panel slim-scroll-light mt-3 max-h-40 overflow-auto border border-ink-900/15 bg-paper-100 p-3 text-[11px] text-rust-600">
               {String(this.state.err?.message ?? this.state.err)}
@@ -174,7 +153,7 @@ function ServiceDrawer({
               Промпт.txt
             </h3>
             <p className="mt-1 text-[11.5px] leading-relaxed text-ink-300">
-              Замена текста промпта. Действует в этом браузере и применяется при формировании ВОР.
+              Замена текста промпта. Действует в этом браузере.
             </p>
           </div>
           <button
@@ -217,7 +196,7 @@ function ServiceDrawer({
                 Прикрепить файл Промпт.txt
               </span>
               <span className="block truncate font-mono text-[10.5px] text-ink-300">
-                {source || "выберите .txt — BOM будет удалён автоматически"}
+                {source || "выберите .txt"}
               </span>
             </span>
             <input
@@ -429,7 +408,7 @@ function AppInner() {
               данные
             </h1>
             <p className="mt-2 text-[12px] leading-relaxed text-ink-300">
-              Три файла — обязательные. Файл Промпт.txt встроен в приложение и читается автоматически.
+              Три файла — обязательные. Файл Промпт.txt встроен в приложение.
             </p>
 
             <div className="mt-6 space-y-3">
@@ -577,16 +556,16 @@ function AppInner() {
                 <li>Загрузите Спецификацию, Базу КЕР и Базу ТМЦ.</li>
                 <li>Уточните коды навигатора (Л2 / Л3) или оставьте по умолчанию.</li>
                 <li>Нажмите «Сформировать ВОР» и скачайте файл.</li>
-                <li>Строки без «Кол-ва» сохраняются как заголовки — иерархия не теряется.</li>
+                <li>Строки без «Кол-ва» сохраняются как заголовки.</li>
               </ol>
               <p className="mt-3 border-l-2 border-brass-500/50 pl-2.5 text-[10.5px] text-ink-400">
-                Файл Промпт.txt встроен в код как константа и подставляется автоматически.
+                Файл Промпт.txt встроен в код как константа.
               </p>
             </div>
 
             <div className="mt-4 flex items-center justify-between border-t border-paper-50/10 pt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-paper-50/40">
               <span className="flex items-center gap-2">
-                ООО «ФСК-Р» · 2026
+                ООО «ФСК-Р» · {clock.getFullYear()}
                 {prompt.custom && (
                   <span className="h-1.5 w-1.5 bg-brass-500" title="Промпт заменён" />
                 )}
@@ -625,8 +604,7 @@ function AppInner() {
                 </h1>
                 <p className="max-w-xl text-[13px] leading-relaxed text-ink-400">
                   Автоматическое формирование ведомости объёмов работ: привязка кодов КЕР и
-                  ТМЦ к спецификации, тройная детализация, трассировка по колонке «Строка»,
-                  экспорт в ВОР.xlsx.
+                  ТМЦ к спецификации, тройная детализация, экспорт в ВОР.xlsx.
                 </p>
               </div>
               <div className="flex items-center gap-3 border-l border-ink-900/15 px-6 py-5 lg:border-l-0">
@@ -652,7 +630,7 @@ function AppInner() {
             <section>
               <SectionTitle kicker="02 · расценки" title="Подбор Код КЕР">
                 <span className="hidden max-w-xs border-l-2 border-brass-500 pl-3 text-[11.5px] leading-snug text-ink-400 sm:block">
-                  Правила применяются к «Наименованию» спецификации после фильтрации базы по навигатору Л2 / Л3.
+                  Правила применяются после фильтрации базы по навигатору Л2 / Л3.
                 </span>
               </SectionTitle>
               <RulesReference />
@@ -686,8 +664,7 @@ function AppInner() {
                 <div className="flex flex-col items-center gap-3 border-2 border-dashed border-ink-900/20 bg-white/40 px-6 py-14 text-center">
                   <IconStamp className="h-9 w-9 text-ink-300" />
                   <p className="max-w-md text-[13px] leading-relaxed text-ink-400">
-                    Здесь появится тройная детализация: каждая позиция спецификации
-                    раскроется строками «Спецификация» → «КЕР» → «ТМЦ» со штампом и статистикой.
+                    Здесь появится тройная детализация: «Спецификация» → «КЕР» → «ТМЦ».
                   </p>
                 </div>
               )}
