@@ -1,24 +1,17 @@
-import { Component, useEffect, useRef, useState, type ReactNode } from "react";
-import { loadExcel, vorBlob, csvBlob } from "./lib/excelIo";
-import { hasCol, processVor, type VorResult, type LoadedFile } from "./lib/vor";
-import { BUILTIN_PROMPT, type PromptState } from "./lib/prompt";
-import { getDemoFiles } from "./lib/demo";
-import { Results } from "./components/results";
-import { Pipeline, RulesReference, TmcAlgo, FormatCard } from "./components/reference";
-import { PythonMenuButton } from "./components/pythonPanel";
-import {
-  FileDrop,
-  SectionTitle,
-  IconAlert,
-  IconCompass,
-  IconStamp,
-  IconCheck,
-  IconGear,
-  IconClose,
-  IconFile,
-  IconDownload,
-} from "./components/ui";
-
+// УПРОЩЁННАЯ ВЕРСИЯ ДЛЯ ДИАГНОСТИКИ
 export default function App() {
-  return <div>App</div>;
+  return (
+    <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
+      <h1>ГЕНЕРАТОР·ВОР</h1>
+      <p>Приложение успешно загружено!</p>
+      <p>Если вы видите этот текст, значит React работает корректно.</p>
+      <hr />
+      <p><strong>Следующие шаги:</strong></p>
+      <ol>
+        <li>Откройте консоль браузера (F12)</li>
+        <li>Проверьте, есть ли ошибки JavaScript</li>
+        <li>Сообщите мне о результатах</li>
+      </ol>
+    </div>
+  );
 }
